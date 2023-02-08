@@ -1,0 +1,53 @@
+.card {
+  width: 35%;
+  padding: 1% 2%;
+  margin: 1%;
+  border-radius: 5px;
+}
+.imgBox {
+  background-color: #3437d4;
+  /* width: 60%; */
+}
+
+.imgBox img {
+  width: 100%;
+}
+.buy {
+  width: 100%;
+  padding: 4% 0;
+  background-color: #3437d4;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  transform: translateY(40%);
+  opacity: 0;
+  transition: all ease 0.5s;
+}
+
+.card:hover .contentBox .buy {
+  opacity: 1;
+  transform: translateY(0%);
+}
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.buy:hover {
+  cursor: pointer;
+  background-color: #5154f6;
+}
+.contentBox a,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: black;
+}
+
+.price {
+  font-weight: bold;
+  text-align: center;
+}
+.name {
+  text-align: center;
+}

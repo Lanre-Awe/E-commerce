@@ -1,0 +1,139 @@
+.cart-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* max-height: 10rem;
+  overflow: auto; */
+}
+.cartQuantity {
+  border-bottom: 1px solid #80808030;
+  padding: 1%;
+  font-size: large;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.actions {
+  text-align: right;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #160976;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #160976;
+  border-color: #160976;
+  color: white;
+}
+
+.actions .button--alt {
+  color: #160976;
+}
+
+.button {
+  background-color: #160976;
+  color: white;
+  width: 100%;
+  padding: 4% 0;
+  border-radius: 3px;
+}
+
+.cartItem {
+  width: 70%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 0.4%;
+  margin: 2% 1% 2% 2%;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+.checkout {
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 1.8%;
+  border-radius: 5px;
+}
+.checkoutContainer {
+  width: 23%;
+  margin: 2% 0 0 0;
+  display: inline-block;
+  position: sticky;
+  top: 2%;
+}
+.order {
+  width: 100%;
+  text-align: center;
+}
+.order img {
+  width: 25%;
+  margin: 10% 0;
+}
+.empty {
+  text-align: center;
+  margin: 15% 0;
+  font-size: larger;
+  font-weight: bold;
+}
+.empty button {
+  display: block;
+  margin: 1% auto;
+  width: 6%;
+  padding: 0.7% 0;
+  border-radius: 5px;
+  color: white;
+  background-color: #160976;
+  font-weight: bold;
+}
+.empty a {
+  text-decoration: none;
+}
+.order div {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 5%;
+}
+.clear {
+  padding: 2%;
+  width: 100%;
+  margin: 3% 0 0 2%;
+  background-color: rgb(253, 50, 50);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.clear:hover {
+  background-color: red;
+}
+.heading {
+  border-bottom: 1px solid #80808030;
+}
+
+.details {
+  padding: 5% 0;
+  margin: 1% 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #80808030;
+}
+.subtotal {
+  font-size: small;
+  font-weight: bold;
+}
+.totalPrice {
+  font-size: large;
+}

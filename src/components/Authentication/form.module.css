@@ -1,0 +1,68 @@
+.container {
+  width: 30%;
+  margin: 7% auto 0 auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.action {
+  display: flex;
+  justify-content: space-between;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.error {
+  color: red;
+  font-size: smaller;
+  font-style: italic;
+}
+.signUp {
+  padding: 3%;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #3585d0;
+}
+
+.formContainer {
+  padding: 2%;
+}
+.formContainer label {
+  display: block;
+  font-weight: bold;
+}
+.formContainer input {
+  width: 95%;
+  padding: 2%;
+  outline-color: #120659;
+}
+.formContainer div {
+  width: 100%;
+  padding: 2% 0;
+}
+
+.formContainer button {
+  width: 100%;
+  padding: 3%;
+  margin: 2% 0;
+  background-color: #3585d0;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+.formContainer button:hover {
+  background-color: #225a8e;
+}
+.formContainer button:disabled {
+  cursor: disabled;
+}
+.login {
+  text-align: center;
+  font-size: small;
+  font-weight: 500;
+}
+
+.login span:hover {
+  color: #3585d0;
+  cursor: pointer;
+}

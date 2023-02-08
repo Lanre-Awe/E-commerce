@@ -1,0 +1,17 @@
+.container {
+  margin: 10% auto;
+  width: 30%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 2%;
+  text-align: center;
+}
+
+.container button {
+  width: 40%;
+  padding: 2% 0;
+  background-color: #3585d0;
+  color: white;
+}
+.container button:hover {
+  background-color: #215485;
+}

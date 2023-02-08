@@ -1,0 +1,49 @@
+.container {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  height: 316px;
+  width: 60%;
+  display: inline-block;
+  margin: 1.3% 0 0 2%;
+}
+
+.card {
+  border-radius: 5px;
+  width: 100%;
+  height: 316px;
+}
+.classContainer {
+  width: 60%;
+  display: inline-block;
+  margin: 1.3% 0 0 2%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  height: 316px;
+}
+
+.heading {
+  width: fit-content;
+  margin: 0.5%;
+  font-weight: bold;
+  font-variant: small-caps;
+  border-bottom: 1px solid black;
+}
+
+.heading:hover {
+  color: #3437d4;
+}
+.img1 {
+  height: 316px;
+}
+.item {
+  margin: 0 0.5%;
+  font-size: smaller;
+}
+.item a {
+  text-decoration: none;
+  color: black;
+}
+.item:hover {
+  font-weight: bold;
+}
+.mainContainer {
+  height: 340px;
+}
