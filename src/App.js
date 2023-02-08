@@ -3,15 +3,12 @@ import Header from "./components/layout/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "./store/uiSlice";
 import Notification from "./components/UI/Notification";
-import Home from "./pages/Home";
 import { Redirect, Route, Switch } from "react-router-dom";
-import CategoryDisplay from "./components/category/CategoryDisplay";
-import ProductDetail from "./pages/ProductDetail";
-import CartPage from "./pages/CartPage";
-import AuthPage from "./pages/AuthPage";
 import { auth } from "./firebase/firebase";
 import { AuthAction } from "./store/AuthSlice";
-import Account from "./components/Account";
+import React from "react";
+import { Suspense } from "react";
+import LoadingSpinner from "./components/UI/LoadingSpinner";
 let initial = true;
 
 function App() {
@@ -20,6 +17,15 @@ function App() {
   const loading = useSelector((state) => state.auth.loading);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+
+  const AuthPage = React.lazy(() => import("./pages/AuthPage"));
+  const CartPage = React.lazy(() => import("./pages/CartPage"));
+  const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
+  const CategoryDisplay = React.lazy(() =>
+    import("./components/category/CategoryDisplay")
+  );
+  const Home = React.lazy(() => import("./pages/Home"));
+  const Account = React.lazy(() => import("./components/Account"));
 
   useEffect(() => {
     const closeNotif = () => {
@@ -73,51 +79,53 @@ function App() {
 
   return (
     <Fragment>
-      {notification && (
-        <Notification
-          status={notification.status}
-          title={notification.title}
-          message={notification.message}
-        />
-      )}
-      <header>{!loading && <Header />}</header>
-      <Switch>
-        {!loading && (
-          <Route path="/" exact>
-            <Redirect to="/home" />
-          </Route>
+      <Suspense fallback={<LoadingSpinner />}>
+        {notification && (
+          <Notification
+            status={notification.status}
+            title={notification.title}
+            message={notification.message}
+          />
         )}
-        {!loading && (
-          <Route path="/home" exact>
-            <Home />
-          </Route>
-        )}
-        {!loading && (
-          <Route path="/authentication">
-            <AuthPage />
-          </Route>
-        )}
-        {!loading && (
-          <Route path="/cart">
-            <CartPage />
-          </Route>
-        )}
-        {!loading && (
-          <Route path="/account">
-            <Account />
-          </Route>
-        )}
-        {!loading && (
-          <Route path="/:categoryName" exact>
-            <CategoryDisplay />
-          </Route>
-        )}
-        {!loading && (
-          <Route path="/:categoryName/:product" exact>
-            <ProductDetail />
-          </Route>
-        )}
-      </Switch>
+        <header>{!loading && <Header />}</header>
+        <Switch>
+          {!loading && (
+            <Route path="/" exact>
+              <Redirect to="/home" />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/home" exact>
+              <Home />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/authentication">
+              <AuthPage />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/cart">
+              <CartPage />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/account">
+              <Account />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/:categoryName" exact>
+              <CategoryDisplay />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/:categoryName/:product" exact>
+              <ProductDetail />
+            </Route>
+          )}
+        </Switch>
+      </Suspense>
     </Fragment>
   );
 }
