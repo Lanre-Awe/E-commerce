@@ -1,4 +1,3 @@
-import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -7,7 +6,6 @@ import { Link } from "react-router-dom";
 import { cartActions } from "../../store/cartSlice";
 import { showAction } from "../../store/showSlice";
 import ShowCategories from "../topDisplay/showCategory";
-import { db } from "../../firebase/firebase";
 import classes from "./Product.module.css";
 
 const responsive = {
@@ -34,8 +32,6 @@ const Product = () => {
   const quantity = useSelector((state) => state.cart.totalAmount);
   const product = useSelector((state) => state.product.product);
   const show = useSelector((state) => state.show.show);
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const updating = useSelector((state) => state.cart.updating);
 
   const addCartHandler = (name, id, price, image, category) => {
     dispatch(
@@ -50,31 +46,6 @@ const Product = () => {
     dispatch(cartActions.onUpdate());
   };
   useEffect(() => {
-    if (currentUser) {
-      const uid = JSON.parse(currentUser).uid;
-      const cartDoc = doc(db, "cart-items", uid);
-      if (cartDoc && updating) {
-        const updateCart = async () => {
-          await updateDoc(cartDoc, {
-            cartItem: cartItem,
-            totalPrice: totalPrice,
-            quantity: quantity,
-          });
-          dispatch(cartActions.onNotUpdate());
-        };
-        updateCart();
-      }
-      const addCart = async () => {
-        await setDoc(doc(db, "cart-items", uid), {
-          uid: uid,
-          cartItem: cartItem,
-          totalPrice: totalPrice,
-          quantity: quantity,
-        });
-      };
-
-      addCart();
-    }
     localStorage.setItem(
       "CART",
       JSON.stringify({
@@ -83,7 +54,7 @@ const Product = () => {
         quantity: quantity,
       })
     );
-  }, [cartItem, totalPrice, quantity, currentUser, updating, dispatch]);
+  }, [cartItem, totalPrice, quantity]);
   useEffect(() => {
     localStorage.setItem("PRODUCT", JSON.stringify(product));
   }, [product]);
@@ -117,7 +88,7 @@ const Product = () => {
                   <ShowCategories />
                 </span>
               )}
-              <div className={classes.productContainer}>
+              <div className={classes.productContainer} key={item.name}>
                 <div className={classes.display}>
                   <div className={classes.imgContainer}>
                     <img src={item.img} alt="" />

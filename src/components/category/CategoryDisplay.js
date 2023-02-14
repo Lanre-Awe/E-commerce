@@ -701,7 +701,6 @@ const CategoryDisplay = () => {
     const pageItem = item.filter(
       (item) => item.category.toLowerCase() === categoryName
     );
-    console.log(pageItem);
     setPageDisplay(pageItem);
   }, [categoryName]);
 
@@ -741,7 +740,6 @@ const CategoryDisplay = () => {
             <div className={classes.container}>
               <div className={classes.itemHead}>
                 <div className={classes.deal}>Deals</div>
-                <div className={classes.see}>See All</div>
               </div>
               <div>
                 <Carousel responsive={responsive}>

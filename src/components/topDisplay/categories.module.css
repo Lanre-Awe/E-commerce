@@ -38,3 +38,8 @@
 .itemContainer a:visited {
   color: #3437d4;
 }
+@media screen and (min-width: 300px) and (max-width: 992px) {
+  .categoryContainer {
+    display: none;
+  }
+}

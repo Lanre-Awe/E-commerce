@@ -77,3 +77,16 @@
   background-color: #160976;
   color: white;
 }
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .imgContainer {
+    width: 35%;
+  }
+  .summary {
+    display: block;
+    right: 52%;
+    margin-top: 3%;
+  }
+  .actions {
+    margin-left: 50%;
+  }
+}

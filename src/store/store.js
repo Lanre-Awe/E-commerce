@@ -4,6 +4,7 @@ import cartSlice from "./cartSlice";
 import categorySlice from "./categorySlice";
 import productSlice from "./productSlice";
 import showSlice from "./showSlice";
+import sideSlice from "./sideSlice";
 import uiSlice from "./uiSlice";
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
     product: productSlice.reducer,
     show: showSlice.reducer,
     auth: AuthSlice.reducer,
+    showSide: sideSlice.reducer,
   },
 });
 

@@ -38,3 +38,21 @@
 .cartLink {
   text-decoration: none;
 }
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .button .cart {
+    display: none;
+  }
+  .button .badge {
+    margin-left: 0.1rem;
+    padding: 0.1rem 0.4rem;
+  }
+  .button .icon {
+    margin-right: 0.2rem;
+  }
+  .button {
+    padding: 0.2rem 0.2rem;
+    background-color: inherit;
+    margin-left: 10%;
+  }
+}

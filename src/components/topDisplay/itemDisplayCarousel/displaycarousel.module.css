@@ -34,3 +34,16 @@
   border-top-right-radius: 5px;
   padding: 2.5%;
 }
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .imgContainer {
+    height: 138px;
+  }
+  .imgContainer img {
+    height: 90px;
+  }
+  .container {
+    height: 142px;
+    margin-bottom: 4%;
+    margin-top: 4%;
+  }
+}

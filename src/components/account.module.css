@@ -15,3 +15,10 @@
 .container button:hover {
   background-color: #215485;
 }
+
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .container {
+    width: 60%;
+    margin-top: 40%;
+  }
+}

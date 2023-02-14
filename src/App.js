@@ -8,7 +8,11 @@ import { auth } from "./firebase/firebase";
 import { AuthAction } from "./store/AuthSlice";
 import React from "react";
 import { Suspense } from "react";
+import ProductDetail from "./pages/ProductDetail";
+import CartPage from "./pages/CartPage";
+import Home from "./pages/Home";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
+import SideMenu from "./components/sideMenu/SideMenu";
 let initial = true;
 
 function App() {
@@ -17,14 +21,11 @@ function App() {
   const loading = useSelector((state) => state.auth.loading);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
-
+  const showSide = useSelector((state) => state.showSide.showSide);
   const AuthPage = React.lazy(() => import("./pages/AuthPage"));
-  const CartPage = React.lazy(() => import("./pages/CartPage"));
-  const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
   const CategoryDisplay = React.lazy(() =>
     import("./components/category/CategoryDisplay")
   );
-  const Home = React.lazy(() => import("./pages/Home"));
   const Account = React.lazy(() => import("./components/Account"));
 
   useEffect(() => {
@@ -45,7 +46,7 @@ function App() {
         uiActions.showNotification({
           status: "success",
           title: "success",
-          message: "Item added to Cart",
+          message: "cart update successful",
         })
       );
       closeNotif();
@@ -60,11 +61,12 @@ function App() {
         uiActions.showNotification({
           status: "error",
           title: "failed",
-          message: "Could not add Item to Cart",
+          message: "Could not add update Cart",
         })
       );
       closeNotif();
     });
+    console.log("hey");
   }, [cart, dispatch]);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -79,15 +81,16 @@ function App() {
 
   return (
     <Fragment>
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
+      {showSide && <SideMenu />}
+      <header>{!loading && <Header />}</header>
       <Suspense fallback={<LoadingSpinner />}>
-        {notification && (
-          <Notification
-            status={notification.status}
-            title={notification.title}
-            message={notification.message}
-          />
-        )}
-        <header>{!loading && <Header />}</header>
         <Switch>
           {!loading && (
             <Route path="/" exact>

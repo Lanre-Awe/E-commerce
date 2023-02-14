@@ -1,12 +1,16 @@
 import styles from "./ShopItem.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
 import { productAction } from "../../store/productSlice";
 import { DummyData } from "./Shoplist";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const ShopItem = (props) => {
   const dispatch = useDispatch();
+  const cartItem = useSelector((state) => state.cart.items);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const quantity = useSelector((state) => state.cart.totalAmount);
 
   const addHandler = () => {
     dispatch(
@@ -20,6 +24,16 @@ const ShopItem = (props) => {
     );
     dispatch(cartActions.onUpdate());
   };
+  useEffect(() => {
+    localStorage.setItem(
+      "CART",
+      JSON.stringify({
+        cartItem: cartItem,
+        totalPrice: totalPrice,
+        quantity: quantity,
+      })
+    );
+  }, [cartItem, totalPrice, quantity]);
   const detailHandler = (name) => {
     const productDetail = DummyData.filter((product) => product.name === name);
     dispatch(productAction.onView(productDetail));

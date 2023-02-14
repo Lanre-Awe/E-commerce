@@ -28,6 +28,13 @@
     left: calc(50% - 20rem);
   }
 }
+@media screen and (min-width: 0px) and (max-width: 500px) {
+  .modal {
+    width: 80%;
+    left: 5%;
+    top: 30vh;
+  }
+}
 
 @keyframes slide-down {
   from {

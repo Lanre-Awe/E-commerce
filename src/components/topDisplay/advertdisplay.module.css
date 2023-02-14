@@ -47,3 +47,65 @@
 .mainContainer {
   height: 340px;
 }
+.formContainer {
+  display: none;
+}
+@media screen and (min-width: 300px) and (max-width: 992px) {
+  .container {
+    width: 96.5%;
+    height: 200px;
+  }
+  .card {
+    height: inherit;
+  }
+  .img1 {
+    height: 200px;
+  }
+  .mainContainer {
+    height: fit-content;
+    margin-top: 2%;
+  }
+  .formContainer {
+    width: 80%;
+
+    margin: 2% auto 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+  .formContainer input {
+    width: 100%;
+    border: 1px solid #2a1596;
+    padding: 1% 3%;
+    outline: 1px solid #2a1596;
+    border-radius: 15px;
+  }
+
+  .formContainer button {
+    background-color: #2a1596;
+    color: white;
+    font-weight: bold;
+    margin-left: 3%;
+    padding: 0 2%;
+    border-radius: 15px;
+    border: none;
+  }
+  .searchResult {
+    position: absolute;
+    z-index: 1;
+    width: 78%;
+    left: 10%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 3%;
+  }
+  .searchResult div {
+    padding: 2.5%;
+  }
+  .searchResult a,
+  .searchResult a:visited,
+  .searchResult a:active {
+    text-decoration: none;
+    color: black;
+  }
+}

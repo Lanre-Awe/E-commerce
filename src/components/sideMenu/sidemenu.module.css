@@ -1,0 +1,49 @@
+.categoryContainer {
+  position: fixed;
+  top: 0%;
+  width: 73%;
+  height: 100vh;
+  z-index: 10000;
+  background-color: white;
+  animation: open 0.5s;
+  padding: 5%;
+}
+.itemContainer {
+  margin: 5% 0;
+  font-size: larger;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.518);
+  padding: 3% 0;
+}
+.itemContainer a,
+.itemContainer a:visited,
+.itemContainer a:active {
+  text-decoration: none;
+  color: black;
+}
+.heading {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 4%;
+  font-weight: bolder;
+  font-size: 22px;
+  align-items: center;
+}
+.buttonContainer {
+  border: none;
+  background-color: white;
+}
+.icons {
+  width: 28px;
+  height: 30px;
+  fill: #000;
+}
+@keyframes open {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

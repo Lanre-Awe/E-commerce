@@ -19,7 +19,6 @@ const Cart = (props) => {
   const [userCart, setUserCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [ordered, setOrdered] = useState(false);
-  const [initial, setInitial] = useState(localStorage.getItem("INITIAL"));
   const updating = useSelector((state) => state.cart.updating);
   const dispatch = useDispatch();
 
@@ -32,6 +31,13 @@ const Cart = (props) => {
       }, 3000);
     }
   };
+  const clearCart = () => {
+    localStorage.removeItem("CART");
+    dispatch(
+      cartActions.replaceCart({ items: [], totalAmount: 0, totalPrice: 0 })
+    );
+    setLoading(true);
+  };
 
   useEffect(() => {
     if (currentUser) {
@@ -40,7 +46,6 @@ const Cart = (props) => {
 
       if (loading && cartDoc) {
         const addCart = async () => {
-          console.log("loading added docu");
           await setDoc(doc(db, "cart-items", uid), {
             uid: uid,
             cartItem: cartItem,
@@ -53,7 +58,6 @@ const Cart = (props) => {
           const cart = await getDoc(doc(db, "cart-items", uid));
           if (cart) {
             const cartDetail = cart.data();
-            console.log(cartDetail);
             setUserCart(cartDetail);
 
             setLoading(false);
@@ -69,7 +73,6 @@ const Cart = (props) => {
             totalPrice: totalPrice,
             quantity: quantity,
           });
-          console.log(loading);
           dispatch(cartActions.onNotUpdate());
         };
         updateCart();
@@ -89,9 +92,6 @@ const Cart = (props) => {
     } else {
       setLoading(false);
     }
-  }, [cartItem, totalPrice, quantity, updating, loading, dispatch]);
-
-  useEffect(() => {
     localStorage.setItem(
       "CART",
       JSON.stringify({
@@ -100,8 +100,7 @@ const Cart = (props) => {
         quantity: quantity,
       })
     );
-    localStorage.setItem("INITIAL", initial);
-  }, [cartItem, totalPrice, quantity, initial]);
+  }, [cartItem, totalPrice, quantity, updating, loading, dispatch]);
 
   const cartDetail = currentUser ? userCart.cartItem : cartItem;
   const cartItems = (
@@ -121,13 +120,34 @@ const Cart = (props) => {
         ))}
     </ul>
   );
-
-  const clearCart = () => {
-    localStorage.removeItem("CART");
-    setLoading(true);
-    window.location.reload(true);
-  };
-
+  const checkoutButton = (
+    <div className={classes.checkoutButtonContainer}>
+      {!currentUser ? (
+        <Link to="/authentication">
+          (
+          <button className={classes.button} onClick={orderHandler}>
+            {!loading && totalPrice !== 0
+              ? `Checkout(NGN ${
+                  currentUser
+                    ? userCart.totalPrice.toLocaleString("en-US")
+                    : totalPrice.toLocaleString("en-US")
+                })`
+              : "Proceed to Checkout"}
+          </button>
+        </Link>
+      ) : (
+        <button className={classes.button} onClick={orderHandler}>
+          {!loading && totalPrice !== 0
+            ? `Checkout(NGN ${
+                currentUser
+                  ? userCart.totalPrice.toLocaleString("en-US")
+                  : totalPrice.toLocaleString("en-US")
+              })`
+            : "Proceed to Checkout"}
+        </button>
+      )}
+    </div>
+  );
   const modalActions = (
     <>
       <div className={classes.checkoutContainer}>
@@ -191,15 +211,36 @@ const Cart = (props) => {
         <div className={classes.empty}>
           <span>cart empty</span>
           <Link to="/">
-            <button>shop</button>
+            <button>Go to shop</button>
           </Link>
         </div>
       )}
       {!loading && cartDetail.length > 0 && (
         <div>
+          <div className={classes.phoneSummary}>
+            <div className={classes.heading}>
+              <span>CART SUMMARY</span>
+            </div>
+            <div className={classes.details}>
+              <span className={classes.subtotal}>Subtotal</span>
+              <span className={classes.totalPrice}>
+                {!loading &&
+                  `NGN ${
+                    currentUser
+                      ? userCart.totalPrice.toLocaleString("en-US")
+                      : totalPrice.toLocaleString("en-US")
+                  }`}
+              </span>
+            </div>
+          </div>
           <div className={classes.cartItem}>
-            <div className={classes.cartQuantity}>
-              Cart({currentUser ? userCart.quantity : quantity})
+            <div className={classes.cartAction}>
+              <div className={classes.cartQuantity}>
+                Cart({currentUser ? userCart.quantity : quantity})
+              </div>
+              <div className={classes.clearButtonContainer} onClick={clearCart}>
+                <button>clear cart</button>
+              </div>
             </div>
             {cartItems}
           </div>
@@ -207,6 +248,7 @@ const Cart = (props) => {
           {modalActions}
         </div>
       )}
+      {!loading && cartDetail.length > 0 && checkoutButton}
     </>
   );
 };
