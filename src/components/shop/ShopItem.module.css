@@ -23,6 +23,7 @@
   transform: translateY(40%);
   opacity: 0;
   transition: all ease 0.5s;
+  text-align: center;
 }
 
 .card:hover .contentBox .buy {
@@ -42,6 +43,9 @@ a:visited,
 a:active {
   text-decoration: none;
   color: black;
+}
+.buy:disabled {
+  cursor: not-allowed;
 }
 
 .price {

@@ -13,6 +13,7 @@ import CartPage from "./pages/CartPage";
 import Home from "./pages/Home";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
 import SideMenu from "./components/sideMenu/SideMenu";
+import NotFound from "./pages/NotFound";
 let initial = true;
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     import("./components/category/CategoryDisplay")
   );
   const Account = React.lazy(() => import("./components/Account"));
+  // const Home = React.lazy(() => import("./pages/Home"));
 
   useEffect(() => {
     const closeNotif = () => {
@@ -35,6 +37,7 @@ function App() {
       }, 2000);
     };
     const sendCart = async () => {
+      dispatch(uiActions.onAdd());
       const response = await fetch(
         "https://react-http-684ce-default-rtdb.firebaseio.com/cartItem.json",
         { method: "PUT", body: JSON.stringify(cart) }
@@ -49,6 +52,7 @@ function App() {
           message: "cart update successful",
         })
       );
+      dispatch(uiActions.onAdd());
       closeNotif();
     };
 
@@ -66,7 +70,6 @@ function App() {
       );
       closeNotif();
     });
-    console.log("hey");
   }, [cart, dispatch]);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -125,6 +128,11 @@ function App() {
           {!loading && (
             <Route path="/:categoryName/:product" exact>
               <ProductDetail />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="*">
+              <NotFound />
             </Route>
           )}
         </Switch>

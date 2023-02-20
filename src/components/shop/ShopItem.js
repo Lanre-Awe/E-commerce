@@ -4,15 +4,19 @@ import { cartActions } from "../../store/cartSlice";
 import { productAction } from "../../store/productSlice";
 import { DummyData } from "./Shoplist";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loader from "../UI/Loader";
 
 const ShopItem = (props) => {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
   const quantity = useSelector((state) => state.cart.totalAmount);
+  const adding = useSelector((state) => state.ui.adding);
+  const [item, setItem] = useState("");
 
-  const addHandler = () => {
+  const addHandler = (index) => {
+    setItem(index);
     dispatch(
       cartActions.onAdd({
         name: props.name,
@@ -24,6 +28,12 @@ const ShopItem = (props) => {
     );
     dispatch(cartActions.onUpdate());
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setItem("");
+    }, 1000);
+  }, [item]);
   useEffect(() => {
     localStorage.setItem(
       "CART",
@@ -62,8 +72,12 @@ const ShopItem = (props) => {
         <div className={styles.price}>
           ₦ {props.price.toLocaleString("en-US")}
         </div>
-        <button className={styles.buy} onClick={addHandler}>
-          Add to Cart
+        <button
+          disabled={adding ? true : false}
+          className={styles.buy}
+          onClick={addHandler.bind(this, props.index)}
+        >
+          {item === props.index && adding ? <Loader /> : "Add to Cart"}
         </button>
       </div>
     </div>

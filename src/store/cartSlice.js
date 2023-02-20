@@ -34,7 +34,6 @@ const cartSlice = createSlice({
       state.totalPrice = action.payload.totalPrice;
     },
     onAdd(state, action) {
-      console.log(action);
       const existingItem = state.items.find(
         (item) => item.name === action.payload.name
       );

@@ -42,8 +42,8 @@ const Cart = (props) => {
   useEffect(() => {
     if (currentUser) {
       const uid = JSON.parse(currentUser).uid;
-      const cartDoc = doc(db, "cart-items", uid);
 
+      const cartDoc = doc(db, "cart-items", uid);
       if (loading && cartDoc) {
         const addCart = async () => {
           await setDoc(doc(db, "cart-items", uid), {
@@ -59,13 +59,11 @@ const Cart = (props) => {
           if (cart) {
             const cartDetail = cart.data();
             setUserCart(cartDetail);
-
             setLoading(false);
           }
         };
         getUserCart();
       } else if (cartDetail && updating) {
-        console.log("update");
         setLoading(true);
         const updateCart = async () => {
           await updateDoc(cartDoc, {
@@ -76,18 +74,6 @@ const Cart = (props) => {
           dispatch(cartActions.onNotUpdate());
         };
         updateCart();
-        const getUserCart = async () => {
-          console.log("gotten cart after updating");
-          const cart = await getDoc(doc(db, "cart-items", uid));
-          if (cart) {
-            const cartDetail = cart.data();
-            console.log(cartDetail);
-            setUserCart(cartDetail);
-
-            setLoading(false);
-          }
-        };
-        getUserCart();
       }
     } else {
       setLoading(false);

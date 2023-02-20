@@ -1,25 +1,6 @@
 import ShopItem from "./ShopItem";
 import styles from "./shoplist.module.css";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 6,
-    slidesToSlide: 6,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1,
-  },
-};
 export const DummyData = [
   {
     id: 1,
@@ -63,9 +44,10 @@ const Shoplist = () => {
     <>
       <div className={styles.heading}>FAST DEALS</div>
       <div className={styles.container}>
-        {DummyData.map((item) => {
+        {DummyData.map((item, index) => {
           return (
             <ShopItem
+              index={index}
               key={item.name}
               id={item.id}
               name={item.name}

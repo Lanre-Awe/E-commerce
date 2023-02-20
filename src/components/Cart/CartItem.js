@@ -34,7 +34,6 @@ const CartItem = (props) => {
   };
   const getProduct = (name) => {
     const product = cartItem.filter((productItem) => productItem.name === name);
-    console.log(product);
     dispatch(productAction.onView(product));
   };
 

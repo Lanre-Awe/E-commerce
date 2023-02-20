@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { notification: null },
+  initialState: { notification: null, adding: false },
   reducers: {
     showNotification(state, action) {
       state.notification = {
@@ -13,6 +13,9 @@ const uiSlice = createSlice({
     },
     closeNotification(state) {
       state.notification = null;
+    },
+    onAdd(state) {
+      state.adding = !state.adding;
     },
   },
 });
