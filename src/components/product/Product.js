@@ -7,6 +7,7 @@ import { cartActions } from "../../store/cartSlice";
 import { showAction } from "../../store/showSlice";
 import ShowCategories from "../topDisplay/showCategory";
 import classes from "./Product.module.css";
+import ReactImageMagnify from "react-image-magnify";
 
 const responsive = {
   desktop: {
@@ -91,7 +92,21 @@ const Product = () => {
               <div className={classes.productContainer} key={item.name}>
                 <div className={classes.display}>
                   <div className={classes.imgContainer}>
-                    <img src={item.img} alt="" />
+                    <ReactImageMagnify
+                      {...{
+                        smallImage: {
+                          alt: item.name,
+                          isFluidWidth: true,
+                          src: item.img,
+                        },
+                        largeImage: {
+                          src: item.img,
+                          width: 1800,
+                          height: 1800,
+                        },
+                        isHintEnabled: true,
+                      }}
+                    />
                   </div>
                   <div>
                     <Carousel responsive={responsive}>
