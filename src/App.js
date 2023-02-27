@@ -13,7 +13,6 @@ import CartPage from "./pages/CartPage";
 import Home from "./pages/Home";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
 import SideMenu from "./components/sideMenu/SideMenu";
-import NotFound from "./pages/NotFound";
 let initial = true;
 
 function App() {
@@ -128,11 +127,6 @@ function App() {
           {!loading && (
             <Route path="/:categoryName/:product" exact>
               <ProductDetail />
-            </Route>
-          )}
-          {!loading && (
-            <Route path="*">
-              <NotFound />
             </Route>
           )}
         </Switch>

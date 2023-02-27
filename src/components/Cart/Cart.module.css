@@ -172,6 +172,8 @@
     position: fixed;
     bottom: 0;
     border-radius: 0px;
+    left: -1%;
+    width: 104%;
   }
   .cart-items {
     margin-bottom: 18%;

@@ -4,6 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import NotFound from "../../pages/NotFound";
 import { productAction } from "../../store/productSlice";
 import { showAction } from "../../store/showSlice";
 import ShowCategories from "../topDisplay/showCategory";
@@ -701,7 +702,11 @@ const CategoryDisplay = () => {
     const pageItem = item.filter(
       (item) => item.category.toLowerCase() === categoryName
     );
-    setPageDisplay(pageItem);
+    if (pageItem.length > 0) {
+      setPageDisplay(pageItem);
+    } else {
+      setPageDisplay(null);
+    }
   }, [categoryName]);
 
   const productDetailHandler = (id, item) => {
@@ -720,63 +725,67 @@ const CategoryDisplay = () => {
   }, []);
   return (
     <div>
-      {pageDisplay.map((items) => {
-        return (
-          <>
-            <div className={classes.redirect}>
-              <span className={classes.home} onMouseOver={showHandler}>
-                <Link to="/home">home</Link>
-              </span>{" "}
-              {">"} <span>{items.category.toLowerCase()}</span>
-            </div>
-            {show && (
-              <div className={classes.others} onMouseLeave={closeHandler}>
-                <ShowCategories />
+      {pageDisplay ? (
+        pageDisplay.map((items) => {
+          return (
+            <>
+              <div className={classes.redirect}>
+                <span className={classes.home} onMouseOver={showHandler}>
+                  <Link to="/home">home</Link>
+                </span>{" "}
+                {">"} <span>{items.category.toLowerCase()}</span>
               </div>
-            )}
-            <div className={classes.heading}>
-              <span> {items.category}</span>
-            </div>
-            <div className={classes.container}>
-              <div className={classes.itemHead}>
-                <div className={classes.deal}>Deals</div>
+              {show && (
+                <div className={classes.others} onMouseLeave={closeHandler}>
+                  <ShowCategories />
+                </div>
+              )}
+              <div className={classes.heading}>
+                <span> {items.category}</span>
               </div>
-              <div>
-                <Carousel responsive={responsive}>
-                  {items.list.map((itemProduct) => {
-                    return (
-                      <div
-                        className={classes.itemContainer}
-                        onClick={productDetailHandler.bind(
-                          this,
-                          itemProduct.id,
-                          items.list
-                        )}
-                      >
-                        <Link
-                          to={`/${categoryName.toLowerCase()}/${itemProduct.name.toLowerCase()}`}
+              <div className={classes.container}>
+                <div className={classes.itemHead}>
+                  <div className={classes.deal}>Deals</div>
+                </div>
+                <div>
+                  <Carousel responsive={responsive}>
+                    {items.list.map((itemProduct) => {
+                      return (
+                        <div
+                          className={classes.itemContainer}
+                          onClick={productDetailHandler.bind(
+                            this,
+                            itemProduct.id,
+                            items.list
+                          )}
                         >
-                          <div className={classes.imgContainer}>
-                            <img src={itemProduct.img} alt="" />
-                          </div>
-                          <div className={classes.title}>
-                            <span>{itemProduct.name}</span>
-                          </div>
-                          <div className={classes.price}>
-                            <span>
-                              ₦ {itemProduct.price.toLocaleString("en-US")}
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </Carousel>
+                          <Link
+                            to={`/${categoryName.toLowerCase()}/${itemProduct.name.toLowerCase()}`}
+                          >
+                            <div className={classes.imgContainer}>
+                              <img src={itemProduct.img} alt="" />
+                            </div>
+                            <div className={classes.title}>
+                              <span>{itemProduct.name}</span>
+                            </div>
+                            <div className={classes.price}>
+                              <span>
+                                ₦ {itemProduct.price.toLocaleString("en-US")}
+                              </span>
+                            </div>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                  </Carousel>
+                </div>
               </div>
-            </div>
-          </>
-        );
-      })}
+            </>
+          );
+        })
+      ) : (
+        <NotFound />
+      )}
     </div>
   );
 };
